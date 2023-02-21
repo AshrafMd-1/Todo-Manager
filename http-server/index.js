@@ -45,4 +45,4 @@ http
         break;
     }
   })
-  .listen(Number(args[args.indexOf("--port") + 1]));
+  .listen(args[args.indexOf("--port") + 1]);
