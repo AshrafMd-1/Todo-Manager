@@ -33,15 +33,17 @@ const todoList = () => {
   const toDisplayableList = (list) => {
     // Format the To-Do list here, and return the output string
     // as per the format given above.
-    const lst = list.map((items) => {
-      const it = items.completed ? "[x]" : "[ ]";
-      const dt =
-        items.dueDate.split("-")[2] === String(new Date().getDate())
-          ? ""
-          : items.dueDate;
-      return `${it} ${items.title} ${dt}`;
-    });
-    return lst.join("\n");
+    return list
+      .map((items) => {
+        const comStatus = items.completed ? "[x]" : "";
+        const titleTrim = items.title.trim();
+        const disDate =
+          items.dueDate === new Date().toLocaleDateString("en-CA")
+            ? ""
+            : items.dueDate;
+        return `${comStatus} ${titleTrim} ${disDate}`;
+      })
+      .join("\n");
   };
 
   return {
