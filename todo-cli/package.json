@@ -5,7 +5,7 @@
   "main": "todo.js",
   "scripts": {
     "start": "clear && nodemon index.js",
-    "destroy":  "NODE_ENV=development npx sequelize-cli db:drop && NODE_ENV=test npx sequelize-cli db:drop",
+    "destroy": "NODE_ENV=development npx sequelize-cli db:drop && NODE_ENV=test npx sequelize-cli db:drop",
     "pretest": "NODE_ENV=test npx sequelize-cli db:drop && NODE_ENV=test npx sequelize-cli db:create",
     "test": "NODE_ENV=test jest --detectOpenHandles",
     "prepare": "cd .. && husky install todo-cli/.husky"

@@ -1,5 +1,5 @@
 // completeTodo.js
-/* eslint-disable */
+/* eslint-disable  no-undef*/
 var argv;
 argv = require("minimist")(process.argv.slice(2));
 const db = require("./models/index");
