@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable */ /* eslint-disable no-undef */
 const db = require("../models");
 
 const getJSDate = (days) => {
@@ -53,6 +53,7 @@ describe("Tests for functions in todo.js", function () {
     expect(aTodo.completed).toBe(false);
     await db.Todo.markAsComplete(aTodo.id);
     await aTodo.reload();
+
     expect(aTodo.completed).toBe(true);
   });
 
@@ -78,7 +79,6 @@ describe("Tests for functions in todo.js", function () {
 
   test("For an incomplete todo due today, Todo.displayableString should return a string of the format `ID. [ ] TITLE` (date should not be shown)", async () => {
     const dueTodayItems = await db.Todo.dueToday();
-
     const aTodo = dueTodayItems[0];
     expect(aTodo.completed).toBe(false);
     const displayValue = aTodo.displayableString();
@@ -88,12 +88,10 @@ describe("Tests for functions in todo.js", function () {
   test("For a complete todo due today, Todo.displayableString should return a string of the format `ID. [x] TITLE` (date should not be shown)", async () => {
     const dueTodayItems = await db.Todo.dueToday();
     const aTodo = dueTodayItems[0];
-
     expect(aTodo.completed).toBe(false);
     await db.Todo.markAsComplete(aTodo.id);
     await aTodo.reload();
     const displayValue = aTodo.displayableString();
-
     expect(displayValue).toBe(`${aTodo.id}. [x] ${aTodo.title}`);
   });
 });

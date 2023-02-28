@@ -1,6 +1,6 @@
 // models/todo.js
 "use strict";
-const { Model, Op, where } = require("sequelize");
+const { Model, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     /**
@@ -17,23 +17,29 @@ module.exports = (sequelize, DataTypes) => {
 
       console.log("Overdue");
       // FILL IN HERE
-      const ov = await Todo.overdue();
-      const ovString = ov.map((items) => items.displayableString()).join("\n");
-      console.log(ovString);
+      console.log(
+        Todo.overdue()
+          .map((items) => items.displayableString())
+          .join("\n")
+      );
       console.log("\n");
 
       console.log("Due Today");
       // FILL IN HERE
-      const to = await Todo.dueToday();
-      const toString = to.map((items) => items.displayableString()).join("\n");
-      console.log(toString);
+      console.log(
+        Todo.dueToday()
+          .map((items) => items.displayableString())
+          .join("\n")
+      );
       console.log("\n");
 
       console.log("Due Later");
       // FILL IN HERE
-      const dl = await Todo.dueLater();
-      const dlString = dl.map((items) => items.displayableString()).join("\n");
-      console.log(dlString);
+      console.log(
+        Todo.dueLater()
+          .map((items) => items.displayableString())
+          .join("\n")
+      );
     }
 
     static async overdue() {
@@ -74,16 +80,14 @@ module.exports = (sequelize, DataTypes) => {
       await Todo.update(
         { completed: true },
         {
-          where: {
-            id: id,
-          },
+          where: { id: id },
         }
       );
     }
 
     displayableString() {
-      let checkbox = this.completed ? "[x]" : "[ ]";
-      let date =
+      const checkbox = this.completed ? "[x]" : "[ ]";
+      const date =
         new Date(this.dueDate).toLocaleDateString() ===
         new Date().toLocaleDateString("en-CA")
           ? ""
