@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Rampart+One&display=swap");
+
+body {
+  margin: 10px;
+  padding: 10px;
+  background-color: cornsilk;
+}
+
+h1 {
+  font-family: "Rampart One", cursive;
+  font-size: 50px;
+  color: #b517ea;
+}
+
+td {
+  font-family: "Pacifico", cursive;
+  font-size: 25px;
+  color: #156bf5;
+}
