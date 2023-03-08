@@ -11,10 +11,17 @@ app.set("view engine", "ejs");
 app.use(express.static(path.resolve(__dirname, "public")))
 
 app.get("/", async (request, response) => {
-    const allTodos = await Todo.getTodos()
+    const overdue = await Todo.overdueTodos()
+    const today = await Todo.todayTodos()
+    const later = await Todo.laterTodos()
     if (request.accepts("html")) {
         response.render("index", {
-            allTodos
+            overdueTodos: overdue,
+            todayTodos: today,
+            laterTodos: later,
+            overdueCount: overdue.length,
+            todayCount: today.length,
+            laterCount: later.length
         })
     } else {
         response.json({
