@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Courgette&family=Pacifico&family=Rampart+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Courgette&family=Pacifico&family=Rampart+One&family=Righteous&display=swap');
 
 body {
     width: 100vw;
@@ -188,6 +188,13 @@ li {
     list-style: decimal;
     padding: 2px;
     word-wrap: anywhere;
+    font-family: 'Righteous', cursive;
+    font-size: 1.15rem;
+    color: #000000;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0;
+
 
 }
 
@@ -245,7 +252,7 @@ li {
     text-align: center;
 }
 
-.todo-header{
+.todo-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
