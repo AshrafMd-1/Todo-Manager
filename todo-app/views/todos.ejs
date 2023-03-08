@@ -24,12 +24,12 @@
     </form>
     <div class="tasks">
         <div class="overdue">
-
-            <h5>Overdue
+            <div class="todo-header">
+            <h5>Overdue</h5>
                 <span class="todo-count" id="count-overdue">
                 [<%= overdueCount %>]
             </span>
-            </h5>
+                </div>
             <ol id="overdue">
                 <% for(let i = 0;i < overdueTodos.length;i++){ %>
                     <li>
@@ -39,11 +39,12 @@
             </ol>
         </div>
         <div class="today">
-            <h5>Due Today
+            <div class="todo-header">
+            <h5>Due Today</h5>
                 <span class="todo-count" id="count-due-today">
                 [<%= todayCount %>]
             </span>
-            </h5>
+                </div>
             <ol id="today">
                 <% for(let i = 0;i < todayTodos.length;i++){ %>
                     <li>
@@ -53,10 +54,12 @@
             </ol>
         </div>
         <div class="upcoming">
-            <h5>Due Later
+            <div class="todo-header">
+            <h5>Due Later</h5>
                 <span class="todo-count" id="count-due-later">
                 [<%= laterCount %>]
-            </span></h5>
+            </span>
+                </div>
             <ol id="upcoming">
                 <% for(let i = 0;i < laterTodos.length;i++){ %>
                     <li>
