@@ -6,13 +6,70 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link href="./css/styles.css" rel="stylesheet">
     <title>Todo-List</title>
+
+    <script>
+        const updateTodo = (id) => {
+            const checkSelected = document.getElementById(`${id}`).checked;
+            fetch(`/todos/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    completed: checkSelected
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((res) => {
+                if (res.ok) {
+                    window.location.reload();
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+        };
+
+        const deleteTodo = (id) => {
+            fetch(`/todos/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((res) => {
+                if (res.ok) {
+                    window.location.reload();
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+        };
+    </script>
+
 </head>
 <body>
 <header>
     <%- include('header.ejs') %>
 </header>
 <main>
-    <%- include("todos.ejs") %>
+    <p class="title">Type your TODO here</p>
+    <div class="page">
+        <form class="input-form" action="/todos" method="post">
+            <div class="todo">
+                <label for="todo">Todo</label>
+                <input name="title" id="todo" placeholder="Type Your Task..." required type="text">
+            </div>
+            <div class="date">
+                <label for="date">Date</label>
+                <input name="dueDate" id="date" required type="date">
+            </div>
+            <div class="add">
+                <button id="add" type="submit">Add</button>
+            </div>
+        </form>
+        <div class="tasks">
+            <%- include("todo.ejs",{todoType:"overdue",specificTodos:overdueTodos,specificCount:overdueCount}) %>
+            <%- include("todo.ejs",{todoType:"today",specificTodos:todayTodos,specificCount:todayCount}) %>
+            <%- include("todo.ejs",{todoType:"upcoming",specificTodos:laterTodos,specificCount:laterCount}) %>
+        </div>
+    </div>
 </main>
 <footer>
     <%- include("footer.ejs") %>

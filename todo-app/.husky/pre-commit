@@ -2,3 +2,6 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 cd todo-app && npm test
+npm run lint:fix
+npx lint-staged
+
