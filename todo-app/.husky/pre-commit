@@ -2,5 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 cd todo-app && npm test
-npx eslint --fix --ext .js,.jsx .
+npx eslint --fix --ext .js,.jsx
 npx lint-staged
