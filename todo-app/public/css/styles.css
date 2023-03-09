@@ -1,275 +1,274 @@
-@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Courgette&family=Pacifico&family=Rampart+One&family=Righteous&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Courgette&family=Pacifico&family=Rampart+One&family=Righteous&display=swap");
 
 body {
-    width: 100vw;
-    height: 100vh;
-    margin: 2px;
-    padding: 2px;
-    background: mintcream;
-    overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+  margin: 2px;
+  padding: 2px;
+  background: mintcream;
+  overflow-x: hidden;
 }
 
 h1 {
-    font-family: 'Rampart One', cursive;
-    font-size: 3rem;
-    font-weight: 700;
-    color: #7c2cc8;
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 0;
+  font-family: "Rampart One", cursive;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #7c2cc8;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 h5 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 2rem;
-    font-weight: 900;
-    color: #cb81ff;
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 0;
+  font-family: "Fredoka One", cursive;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #cb81ff;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-
 .input-form {
-    width: 50vw;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1rem;
-    padding: 1rem 2rem;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: rgba(6, 24, 44, 0.4) 0 0 0 2px, rgba(6, 24, 44, 0.65) 0 4px 6px -1px, rgba(255, 255, 255, 0.08) 0 1px 0;
-    border-radius: 10px;
-    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+  width: 50vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(6, 24, 44, 0.4) 0 0 0 2px,
+    rgba(6, 24, 44, 0.65) 0 4px 6px -1px, rgba(255, 255, 255, 0.08) 0 1px 0;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
 }
 
 .todo {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1em 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 0;
 }
 
 .date {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1em 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 0;
 }
 
 .add {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1em 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 0;
 }
 
-
 .input-form input {
-    width: 100%;
-    height: 100%;
-    outline: none;
-    font-family: 'Caveat', cursive;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1e1eff;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0, rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
-
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-family: "Caveat", cursive;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e1eff;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0,
+    rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
 }
 
 .input-form label {
-    font-family: 'Pacifico', cursive;
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: #7c2cc8;
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 0;
+  font-family: "Pacifico", cursive;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #7c2cc8;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-
 .add button {
-    width: 100%;
-    height: 100%;
-    outline: none;
-    font-family: 'Alfa Slab One', cursive;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-size: 1.7rem;
-    font-weight: 200;
-    color: #ff3c79;
-    border-radius: 10px;
-    text-align: center;
-    background-color: #e2c7fa;
-    border: none;
-    cursor: pointer;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-family: "Alfa Slab One", cursive;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 1.7rem;
+  font-weight: 200;
+  color: #ff3c79;
+  border-radius: 10px;
+  text-align: center;
+  background-color: #e2c7fa;
+  border: none;
+  cursor: pointer;
 }
 
 .add button:hover {
-    background-color: #ff3c79;
-    color: #e2c7fa;
-    transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+  background-color: #ff3c79;
+  color: #e2c7fa;
+  transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
 }
 
 .todo input:focus {
-    border: 2px solid #7c2cc8;
-    box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0, rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
+  border: 2px solid #7c2cc8;
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0,
+    rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
 }
 
 .date input:focus {
-    border: 2px solid #7c2cc8;
-    box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0, rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
+  border: 2px solid #7c2cc8;
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0,
+    rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
 }
 
 .tasks {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 1em 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 0;
 }
 
 .overdue {
-    width: 75vh;
-    height: fit-content;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 1em;
-    margin: 10px;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
-    background-color: #ffdfe6;
+  width: 75vh;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
+  background-color: #ffdfe6;
 }
 
 .today {
-    width: 75vh;
-    height: fit-content;
-    display: flex;
-    border-radius: 10px;
-    justify-content: center;
-    align-items: center;
-    padding: 1em;
-    margin: 10px;
-    background-color: #f8f3d5;
-    box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
+  width: 75vh;
+  height: fit-content;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  margin: 10px;
+  background-color: #f8f3d5;
+  box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
 }
 
 .upcoming {
-    width: 75vh;
-    height: fit-content;
-    display: flex;
-    border-radius: 10px;
-    justify-content: center;
-    align-items: center;
-    padding: 1em;
-    margin: 10px;
-    background-color: #e5ffe4;
-    box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
+  width: 75vh;
+  height: fit-content;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  margin: 10px;
+  background-color: #e5ffe4;
+  box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
 }
 
-.todo-item{
-    display: flex;
-    flex-direction: row;
+.todo-item {
+  display: flex;
+  flex-direction: row;
 }
 
 .todo-item label {
-    list-style: decimal;
-    padding: 2px;
-    word-wrap: anywhere;
-    font-family: 'Righteous', cursive;
-    font-size: 1.15rem;
-    color: #000000;
-    text-align: left;
-    margin-top: 0;
-    margin-bottom: 0;
+  list-style: decimal;
+  padding: 2px;
+  word-wrap: anywhere;
+  font-family: "Righteous", cursive;
+  font-size: 1.15rem;
+  color: #000000;
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .todo-item label:hover {
-    color: #ff3c79;
-    transition: color 0s ;
-    cursor: pointer;
+  color: #ff3c79;
+  transition: color 0s;
+  cursor: pointer;
 }
 
-.todo-item input[type=checkbox] {
-    margin: 0.5rem;
-    cursor: pointer;
+.todo-item input[type="checkbox"] {
+  margin: 0.5rem;
+  cursor: pointer;
 }
 
 .delete-todo {
-    margin-left: 0.5rem;
-    background-color: #ff3c79;
-    color: #ffffff;
-    border: none;
-    border-radius: 10px;
-    font-family: "Permanent Marker", cursive;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
+  margin-left: 0.5rem;
+  background-color: #ff3c79;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .completed {
-    margin-left: 0.5rem;
-    background-color: #ffa600;
-    color: #ffffff;
-    border: none;
-    font-size: 1rem;
-    border-radius: 5px;
-    font-family: "Permanent Marker", cursive;
-    font-weight: 700;
-    cursor: pointer;
+  margin-left: 0.5rem;
+  background-color: #ffa600;
+  color: #ffffff;
+  border: none;
+  font-size: 1rem;
+  border-radius: 5px;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .not-completed {
-    margin-left: 0.5rem;
-    background-color: #13d548;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-family: "Permanent Marker", cursive;
-    font-weight: 700;
-    cursor: pointer;
+  margin-left: 0.5rem;
+  background-color: #13d548;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .title {
-    margin-top: 1rem;
-    font-family: 'Courgette', cursive;
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: #ef2b67;
-    text-align: center;
-    margin-bottom: 0;
+  margin-top: 1rem;
+  font-family: "Courgette", cursive;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #ef2b67;
+  text-align: center;
+  margin-bottom: 0;
 }
 
 .todo-count {
-    margin: 5px;
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: #457cfb;
-    text-align: center;
+  margin: 5px;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #457cfb;
+  text-align: center;
 }
 
 .todo-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 0;
 }
-
