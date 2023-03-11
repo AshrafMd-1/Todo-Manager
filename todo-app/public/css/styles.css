@@ -147,7 +147,7 @@ h5 {
 .today,
 .upcoming,
 .completed {
-  width: 75vh;
+  width: 30rem;
   height: fit-content;
   display: flex;
   flex-direction: row;
