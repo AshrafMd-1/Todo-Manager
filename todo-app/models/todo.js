@@ -20,15 +20,14 @@ module.exports = (sequelize, DataTypes) => {
       return delTodo.destroy();
     }
 
-    static getTodos() {
-      return this.findAll();
-    }
-
     static overdueTodos() {
       return this.findAll({
         where: {
           dueDate: {
             [Op.lt]: new Date().toLocaleDateString("en-CA"),
+          },
+          completed: {
+            [Op.eq]: false,
           },
         },
       });
@@ -40,6 +39,9 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [Op.eq]: new Date().toLocaleDateString("en-CA"),
           },
+          completed: {
+            [Op.eq]: false,
+          },
         },
       });
     }
@@ -49,6 +51,19 @@ module.exports = (sequelize, DataTypes) => {
         where: {
           dueDate: {
             [Op.gt]: new Date().toLocaleDateString("en-CA"),
+          },
+          completed: {
+            [Op.eq]: false,
+          },
+        },
+      });
+    }
+
+    static completedTodos() {
+      return this.findAll({
+        where: {
+          completed: {
+            [Op.eq]: true,
           },
         },
       });

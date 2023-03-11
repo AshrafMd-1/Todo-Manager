@@ -143,7 +143,7 @@ h5 {
   padding: 1em 0;
 }
 
-.overdue {
+.overdue,.today,.upcoming,.completed {
   width: 75vh;
   height: fit-content;
   display: flex;
@@ -154,33 +154,22 @@ h5 {
   margin: 10px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
-  background-color: #ffdfe6;
+}
+
+.overdue {
+  background-color: #ffe5e5;
 }
 
 .today {
-  width: 75vh;
-  height: fit-content;
-  display: flex;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-  padding: 1em;
-  margin: 10px;
   background-color: #f8f3d5;
-  box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
 }
 
 .upcoming {
-  width: 75vh;
-  height: fit-content;
-  display: flex;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-  padding: 1em;
-  margin: 10px;
   background-color: #e5ffe4;
-  box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
+}
+
+.completed{
+  background-color: #e2f7ff;
 }
 
 .todo-item {
@@ -220,30 +209,6 @@ h5 {
   font-family: "Permanent Marker", cursive;
   font-weight: 700;
   font-size: 1rem;
-  cursor: pointer;
-}
-
-.completed {
-  margin-left: 0.5rem;
-  background-color: #ffa600;
-  color: #ffffff;
-  border: none;
-  font-size: 1rem;
-  border-radius: 5px;
-  font-family: "Permanent Marker", cursive;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.not-completed {
-  margin-left: 0.5rem;
-  background-color: #13d548;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-family: "Permanent Marker", cursive;
-  font-weight: 700;
   cursor: pointer;
 }
 

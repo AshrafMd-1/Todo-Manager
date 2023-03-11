@@ -1,8 +1,11 @@
 const express = require("express");
-const app = express();
-const { Todo } = require("./models");
 const bodyParser = require("body-parser");
+const csurf = require("tiny-csrf");
+const cookieParser = require("cookie-parser");
 const path = require("path");
+const { Todo } = require("./models");
+
+const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -10,44 +13,31 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(path.resolve(__dirname, "public")));
 
+app.use(cookieParser("A secret string"));
+app.use(csurf("2r~h8B_]{eb8n!CQ6-m~I>E:9B,#43XE", ["POST", "PUT", "DELETE"]));
+
 app.get("/", async (request, response) => {
   console.log("Processing list of all Todos ...");
   try {
     const overdue = await Todo.overdueTodos();
     const today = await Todo.todayTodos();
     const later = await Todo.laterTodos();
-    if (request.accepts("html")) {
-      response.render("index", {
-        overdueTodos: overdue,
-        todayTodos: today,
-        laterTodos: later,
-        overdueCount: overdue.length,
-        todayCount: today.length,
-        laterCount: later.length,
-      });
-    } else {
-      return response.json({
-        overdueTodos: overdue,
-        todayTodos: today,
-        laterTodos: later,
-        overdueCount: overdue.length,
-        todayCount: today.length,
-        laterCount: later.length,
-      });
-    }
+    const completed = await Todo.completedTodos();
+    response.render("index", {
+      overdueTodos: overdue,
+      todayTodos: today,
+      laterTodos: later,
+      completedTodos: completed,
+      overdueCount: overdue.length,
+      todayCount: today.length,
+      laterCount: later.length,
+      completedCount: completed.length,
+      csrfToken: request.csrfToken(),
+    });
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
   }
-});
-app.get("/todos", async function (_request, response) {
-  console.log("Processing list of all Todos ...");
-  // FILL IN YOUR CODE HERE
-  // First, we have to query our PostgerSQL database using Sequelize to get list of all Todos.
-  // Then, we have to respond with all Todos, like:
-  // response.send(todos)
-  const allTodos = await Todo.findAll();
-  response.json(allTodos);
 });
 
 app.get("/todos/:id", async function (request, response) {

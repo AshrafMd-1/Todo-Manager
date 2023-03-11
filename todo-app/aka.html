@@ -1,0 +1,139 @@
+ <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link href="./css/styles.css" rel="stylesheet">
+        <meta name="csrf-token" content="38417a7e-a954-4744-b97b-99a2d15ca366">
+        <title>Todo-List</title>
+
+        <script>
+            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const updateTodo = (id) => {
+                const checkSelected = document.getElementById(`${id}`).checked;
+                fetch(`/todos/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        completed: checkSelected,
+                        "_csrf": token
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }).then((res) => {
+                    if (res.ok) {
+                        window.location.reload();
+                    }
+                }).catch((err) => {
+                    console.log(err);
+                });
+            };
+
+            const deleteTodo = (id) => {
+                const token=document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                fetch(`/todos/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "_csrf": token
+                    })
+                }).then((res) => {
+                    if (res.ok) {
+                        window.location.reload();
+                    }
+                }).catch((err) => {
+                    console.log(err);
+                });
+            };
+        </script>
+
+    </head>
+    <body>
+    <header>
+        <h1>This is my Todo Application</h1>
+    </header>
+    <main>
+        <p class="title">Type your TODO here</p>
+        <div class="page">
+            <form class="input-form" action="/todos" method="post">
+                <input type="hidden" name="_csrf" value="38417a7e-a954-4744-b97b-99a2d15ca366">
+                <div class="todo">
+                    <label for="todo">Todo</label>
+                    <input name="title" id="todo" placeholder="Type Your Task..." required type="text">
+                </div>
+                <div class="date">
+                    <label for="date">Date</label>
+                    <input name="dueDate" id="date" required type="date">
+                </div>
+                <div class="add">
+                    <button id="add" type="submit">Add</button>
+                </div>
+            </form>
+            <div class="tasks">
+                <div class="overdue">
+        <div class="todo-header">
+            <h5>Overdue</h5>
+            <span class="todo-count" id="count-overdue">
+                    [0]
+                </span>
+        </div>
+        <div id="overdue">
+
+        </div>
+    </div>
+                <div class="today">
+        <div class="todo-header">
+            <h5>Due Today</h5>
+            <span class="todo-count" id="count-today">
+                    [2]
+                </span>
+        </div>
+        <div id="today">
+
+            <div class="todo-item">
+                <input onclick="updateTodo( 1)" type="checkbox" id="1"  />
+                <label for="1">Buy milk</label>
+                <button onclick="deleteTodo(1)" class="delete-todo">X</button>
+            </div>
+
+            <div class="todo-item">
+                <input onclick="updateTodo( 2)" type="checkbox" id="2"  />
+                <label for="2">Buy milk</label>
+                <button onclick="deleteTodo(2)" class="delete-todo">X</button>
+            </div>
+
+        </div>
+    </div>
+                <div class="upcoming">
+        <div class="todo-header">
+            <h5>Due Later</h5>
+            <span class="todo-count" id="count-upcoming">
+                    [0]
+                </span>
+        </div>
+        <div id="upcoming">
+
+        </div>
+    </div>
+                <div class="completed">
+        <div class="todo-header">
+            <h5>Completed Items</h5>
+            <span class="todo-count" id="count-completed">
+                    [0]
+                </span>
+        </div>
+        <div id="completed">
+
+        </div>
+    </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <h1>Built with Node.js</h1>
+    </footer>
+    </body>
+    </html>
