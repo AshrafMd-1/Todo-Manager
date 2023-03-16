@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      Todo.belongsTo(models.User, { foreignKey: "UserId" });
       // define association here
     }
 
@@ -69,12 +70,8 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    setCompletionStatus(num) {
-      if (num === 1) {
-        return this.update({ completed: true });
-      } else {
-        return this.update({ completed: false });
-      }
+    setCompletionStatus(status) {
+      return this.update({ completed: status });
     }
   }
 

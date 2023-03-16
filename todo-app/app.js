@@ -69,9 +69,7 @@ app.put("/todos/:id", async function (request, response) {
   console.log("Marking a Todo as completed with ID: ", request.params.id);
   try {
     const todo = await Todo.findByPk(request.params.id);
-    const updatedTodo = await todo.setCompletionStatus(
-      request.body.completed ? 1 : 0
-    );
+    const updatedTodo = await todo.setCompletionStatus(request.body.completed);
     return response.json(updatedTodo);
   } catch (error) {
     console.log(error);

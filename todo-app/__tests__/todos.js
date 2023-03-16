@@ -50,7 +50,7 @@ describe("Todo Application", function () {
     expect(response.statusCode).toBe(302);
   });
 
-  test("Update a Todo-Item ", async () => {
+  test("Update a Todo-Item as complete", async () => {
     const res = await agent.get("/");
     const csrfToken = extractCSRFToken(res);
     expect(extractCompletionStatus(res)).toBe(false);
@@ -60,6 +60,18 @@ describe("Todo Application", function () {
     });
     expect(extractCompletionStatus(await agent.get("/"))).toBe(true);
   });
+
+  test("Update a Todo-Item as incomplete", async () => {
+    const res = await agent.get("/");
+    const csrfToken = extractCSRFToken(res);
+    expect(extractCompletionStatus(res)).toBe(true);
+    await agent.put(`/todos/${extractTodoId(res)}`).send({
+      completed: false,
+      _csrf: csrfToken,
+    });
+    expect(extractCompletionStatus(await agent.get("/"))).toBe(false);
+  });
+
   test("Delete a Todo-Item ", async () => {
     const res = await agent.get("/");
     const csrfToken = extractCSRFToken(res);
