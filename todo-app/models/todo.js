@@ -12,16 +12,21 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
 
-    static addTodo({ title, dueDate }) {
-      return this.create({ title, dueDate, completed: false });
+    static addTodo({ title, dueDate, UserId }) {
+      return this.create({ title, dueDate, completed: false, UserId });
     }
 
-    static async removeTodo({ id }) {
-      const delTodo = await this.findByPk(id);
+    static async removeTodo({ id, UserId }) {
+      const delTodo = await this.findOne({
+        where: {
+          id,
+          UserId,
+        },
+      });
       return delTodo.destroy();
     }
 
-    static overdueTodos() {
+    static overdueTodos(UserId) {
       return this.findAll({
         where: {
           dueDate: {
@@ -30,11 +35,12 @@ module.exports = (sequelize, DataTypes) => {
           completed: {
             [Op.eq]: false,
           },
+          UserId,
         },
       });
     }
 
-    static todayTodos() {
+    static todayTodos(UserId) {
       return this.findAll({
         where: {
           dueDate: {
@@ -43,11 +49,12 @@ module.exports = (sequelize, DataTypes) => {
           completed: {
             [Op.eq]: false,
           },
+          UserId,
         },
       });
     }
 
-    static laterTodos() {
+    static laterTodos(UserId) {
       return this.findAll({
         where: {
           dueDate: {
@@ -56,16 +63,18 @@ module.exports = (sequelize, DataTypes) => {
           completed: {
             [Op.eq]: false,
           },
+          UserId,
         },
       });
     }
 
-    static completedTodos() {
+    static completedTodos(UserId) {
       return this.findAll({
         where: {
           completed: {
             [Op.eq]: true,
           },
+          UserId,
         },
       });
     }

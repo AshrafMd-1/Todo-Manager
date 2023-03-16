@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="./css/styles.css" rel="stylesheet">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <title>Todo-List</title>
+
+    <script>
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const updateTodo = (id) => {
+            const checkSelected = document.getElementById(`${id}`).checked;
+            fetch(`/todos/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    completed: checkSelected,
+                    "_csrf": token
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((res) => {
+                if (res.ok) {
+                    window.location.reload();
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+        };
+
+        const deleteTodo = (id) => {
+            const token=document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            fetch(`/todos/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "_csrf": token
+                })
+            }).then((res) => {
+                if (res.ok) {
+                    window.location.reload();
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+        };
+    </script>
+
+</head>
+<body>
+<header>
+    <%- include('header.ejs') %>
+</header>
+<main>
+    <p class="title">Type your TODO here</p>
+    <div class="page">
+        <form class="input-form" action="/todos" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="todo">
+                <label for="todo">Todo</label>
+                <input name="title" id="todo" placeholder="Type Your Task..." required type="text">
+            </div>
+            <div class="date">
+                <label for="date">Date</label>
+                <input name="dueDate" id="date" required type="date">
+            </div>
+            <div class="add">
+                <button id="add" type="submit">Add</button>
+            </div>
+        </form>
+        <div class="tasks">
+            <%- include("todo.ejs",{todoType:"overdue",todoTitle:"Overdue",specificTodos:overdueTodos,specificCount:overdueCount}) %>
+            <%- include("todo.ejs",{todoType:"today",todoTitle:"Due Today",specificTodos:todayTodos,specificCount:todayCount}) %>
+            <%- include("todo.ejs",{todoType:"upcoming",todoTitle:"Due Later",specificTodos:laterTodos,specificCount:laterCount}) %>
+            <%- include("todo.ejs",{todoType:"completed",todoTitle:"Completed Items",specificTodos:completedTodos,specificCount:completedCount}) %>
+        </div>
+    </div>
+</main>
+<footer>
+    <%- include("footer.ejs") %>
+</footer>
+</body>
+</html>
