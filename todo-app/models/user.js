@@ -68,10 +68,10 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
     }
   );
-  // (async () => {
-  //   await sequelize.sync({
-  //     force: true,
-  //   })
-  // })()
+  (async () => {
+    await sequelize.sync({
+      force: true,
+    })
+  })()
   return User;
 };
