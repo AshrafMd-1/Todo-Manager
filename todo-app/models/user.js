@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   // (async () => {
   //   await sequelize.sync({
-  //     force: true
+  //     force: true,
   //   })
   // })()
   return User;
