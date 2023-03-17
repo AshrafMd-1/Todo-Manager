@@ -89,7 +89,7 @@ describe("Todo Application", function () {
     console.log(response);
     expect(response.statusCode).toBe(302);
   });
-  //
+
   test("Update a Todo-Item as complete", async () => {
     const agent = request.agent(server);
     await login(agent, "johndoe@test.com", "password");
@@ -102,7 +102,7 @@ describe("Todo Application", function () {
     });
     expect(extractCompletionStatus(await agent.get("/todos"))).toBe(true);
   });
-  //
+
   test("Update a Todo-Item as incomplete", async () => {
     const agent = request.agent(server);
     await login(agent, "johndoe@test.com", "password");
@@ -116,7 +116,6 @@ describe("Todo Application", function () {
     expect(extractCompletionStatus(await agent.get("/todos"))).toBe(false);
   });
 
-  //
   test("Delete a Todo-Item ", async () => {
     const agent = request.agent(server);
     await login(agent, "johndoe@test.com", "password");
