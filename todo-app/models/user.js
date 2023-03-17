@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict'
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      User.hasMany(models.Todo, { foreignKey: "UserId" });
+    static associate (models) {
+      User.hasMany(models.Todo, { foreignKey: 'UserId' })
       // define association here
     }
   }
@@ -21,12 +21,12 @@ module.exports = (sequelize, DataTypes) => {
         allowEmpty: false,
         validate: {
           notNull: {
-            msg: "First name is required",
+            msg: 'First name is required'
           },
           notEmpty: {
-            msg: "First name is required",
-          },
-        },
+            msg: 'First name is required'
+          }
+        }
       },
       lastName: DataTypes.STRING,
       email: {
@@ -35,19 +35,19 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: {
           args: true,
-          msg: "Email already exists",
+          msg: 'Email already exists'
         },
         validate: {
           notNull: {
-            msg: "Email is required",
+            msg: 'Email is required'
           },
           isEmail: {
-            msg: "Email is invalid",
+            msg: 'Email is invalid'
           },
           notEmpty: {
-            msg: "Email is required",
-          },
-        },
+            msg: 'Email is required'
+          }
+        }
       },
       password: {
         type: DataTypes.STRING,
@@ -55,23 +55,23 @@ module.exports = (sequelize, DataTypes) => {
         allowEmpty: false,
         validate: {
           notNull: {
-            msg: "Password is required",
+            msg: 'Password is required'
           },
           notEmpty: {
-            msg: "Password is required",
-          },
-        },
-      },
+            msg: 'Password is required'
+          }
+        }
+      }
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: 'User'
     }
   );
   (async () => {
     await sequelize.sync({
-      force: true,
+      force: true
     })
   })()
-  return User;
-};
+  return User
+}
