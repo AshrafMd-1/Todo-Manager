@@ -8,6 +8,7 @@ const connectEnsureLogin = require("connect-ensure-login");
 const session = require("express-session");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
+const flash = require("connect-flash");
 
 const path = require("path");
 const { Todo } = require("./models");
@@ -33,6 +34,13 @@ app.use(
   })
 );
 
+app.set("views", path.join(__dirname, "views"));
+app.use(flash());
+app.use((request, response, next) => {
+  response.locals.messages = request.flash();
+  next();
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -53,7 +61,7 @@ passport.use(
           if (result) {
             return done(null, user);
           } else {
-            return done("Invalid email or password");
+            return done(null, false, { message: "Incorrect password." });
           }
         })
         .catch((error) => {
@@ -88,7 +96,7 @@ app.get("/signup", (request, response) => {
 });
 
 app.post("/users", async (request, response) => {
-  const hashedPassword = await bcrypt.hash(request.body.password, 10);
+  const hashedPassword = await bcrypt.hash(request.body.password, 7);
   try {
     const user = await User.create({
       firstName: request.body.firstName,
@@ -117,7 +125,10 @@ app.get("/login", (request, response) => {
 
 app.post(
   "/sessions",
-  passport.authenticate("local", { failureRedirect: "/login" }),
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
   (request, response) => {
     response.redirect("/todos");
   }
