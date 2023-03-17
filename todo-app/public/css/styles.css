@@ -1,264 +1,279 @@
 @import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Courgette&family=Pacifico&family=Rampart+One&family=Righteous&display=swap");
 
 body {
-    width: 100vw;
-    height: 100vh;
-    margin: 2px;
-    padding: 2px;
-    background: mintcream;
-    overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+  margin: 2px;
+  padding: 2px;
+  background: mintcream;
+  overflow-x: hidden;
 }
 
 h1 {
-    font-family: "Rampart One", cursive;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #7c2cc8;
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 0;
+  font-family: "Rampart One", cursive;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #7c2cc8;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 h5 {
-    font-family: "Fredoka One", cursive;
-    font-size: 2rem;
-    font-weight: 900;
-    color: #cb81ff;
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 0;
+  font-family: "Fredoka One", cursive;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #cb81ff;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-.input-form, .sign-up-form, .sign-in-form {
-    width: 50vw;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1rem;
-    padding: 1rem 2rem;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: rgba(6, 24, 44, 0.4) 0 0 0 2px,
+.input-form,
+.sign-up-form,
+.sign-in-form {
+  width: 50vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(6, 24, 44, 0.4) 0 0 0 2px,
     rgba(6, 24, 44, 0.65) 0 4px 6px -1px, rgba(255, 255, 255, 0.08) 0 1px 0;
-    border-radius: 10px;
-    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+  border-radius: 10px;
+  background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
 }
 
-.todo, .date, .add {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1em 0;
+.todo,
+.date,
+.add {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 0;
 }
 
-
-.input-form input, .sign-up-input input, .sign-in-input input {
-    width: 100%;
-    height: 100%;
-    outline: none;
-    font-family: "Caveat", cursive;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1e1eff;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0,
+.input-form input,
+.sign-up-input input,
+.sign-in-input input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-family: "Caveat", cursive;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e1eff;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0,
     rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
 }
 
-.input-form label, .sign-up-input label, .sign-in-input label, .auth span {
-    font-family: "Pacifico", cursive;
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: #7c2cc8;
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 0;
+.input-form label,
+.sign-up-input label,
+.sign-in-input label,
+.auth span {
+  font-family: "Pacifico", cursive;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #7c2cc8;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-.add button, .sign-up-input button, .sign-in-input button {
-    width: 100%;
-    height: 100%;
-    outline: none;
-    font-family: "Alfa Slab One", cursive;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-size: 1.7rem;
-    font-weight: 200;
-    color: #ff3c79;
-    border-radius: 10px;
-    text-align: center;
-    background-color: #e2c7fa;
-    border: none;
-    cursor: pointer;
+.add button,
+.sign-up-input button,
+.sign-in-input button {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-family: "Alfa Slab One", cursive;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 1.7rem;
+  font-weight: 200;
+  color: #ff3c79;
+  border-radius: 10px;
+  text-align: center;
+  background-color: #e2c7fa;
+  border: none;
+  cursor: pointer;
 }
 
-.add button:hover, .sign-up-input button:hover, .sign-in-input button:hover {
-    background-color: #ff3c79;
-    color: #e2c7fa;
-    transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+.add button:hover,
+.sign-up-input button:hover,
+.sign-in-input button:hover {
+  background-color: #ff3c79;
+  color: #e2c7fa;
+  transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
 }
 
-.todo input:focus, .date input:focus, .sign-up-input input:focus, .sign-in-input input:focus {
-    border: 2px solid #7c2cc8;
-    box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0,
+.todo input:focus,
+.date input:focus,
+.sign-up-input input:focus,
+.sign-in-input input:focus {
+  border: 2px solid #7c2cc8;
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0,
     rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
 }
-
 
 .tasks {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 1em 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 0;
 }
 
 .overdue,
 .today,
 .upcoming,
 .completed {
-    width: 35rem;
-    height: fit-content;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 1em;
-    margin: 10px;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
+  width: 35rem;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
 }
 
 .overdue {
-    background-color: #ffe5e5;
+  background-color: #ffe5e5;
 }
 
 .today {
-    background-color: #f8f3d5;
+  background-color: #f8f3d5;
 }
 
 .upcoming {
-    background-color: #e5ffe4;
+  background-color: #e5ffe4;
 }
 
 .completed {
-    background-color: #e2f7ff;
+  background-color: #e2f7ff;
 }
 
 .todo-item {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .todo-item label {
-    list-style: decimal;
-    padding: 2px;
-    word-wrap: anywhere;
-    font-family: "Righteous", cursive;
-    font-size: 1.15rem;
-    color: #000000;
-    text-align: left;
-    margin-top: 0;
-    margin-bottom: 0;
+  list-style: decimal;
+  padding: 2px;
+  word-wrap: anywhere;
+  font-family: "Righteous", cursive;
+  font-size: 1.15rem;
+  color: #000000;
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .todo-item label:hover {
-    color: #ff3c79;
-    transition: color 0s;
-    cursor: pointer;
+  color: #ff3c79;
+  transition: color 0s;
+  cursor: pointer;
 }
 
 .todo-item input[type="checkbox"] {
-    margin: 0.5rem;
-    cursor: pointer;
+  margin: 0.5rem;
+  cursor: pointer;
 }
 
 .delete-todo {
-    margin-left: 0.5rem;
-    background-color: #ff3c79;
-    color: #ffffff;
-    border: none;
-    border-radius: 10px;
-    font-family: "Permanent Marker", cursive;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
+  margin-left: 0.5rem;
+  background-color: #ff3c79;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .title {
-    margin-top: 1rem;
-    font-family: "Courgette", cursive;
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: #ef2b67;
-    text-align: center;
-    margin-bottom: 0;
+  margin-top: 1rem;
+  font-family: "Courgette", cursive;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #ef2b67;
+  text-align: center;
+  margin-bottom: 0;
 }
 
 .todo-count {
-    margin: 5px;
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: #457cfb;
-    text-align: center;
+  margin: 5px;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #457cfb;
+  text-align: center;
 }
 
 .todo-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 0;
 }
 
-.sign-up-input, .sign-in-input {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
+.sign-up-input,
+.sign-in-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
 }
-
 
 .auth {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2em 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2em 0;
 }
 
-.auth button, .sign-out button {
-    outline: none;
-    font-family: "Alfa Slab One", cursive;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-size: 1.3rem;
-    font-weight: 200;
-    color: #457cfb;
-    border-radius: 10px;
-    text-align: center;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+.auth button,
+.sign-out button {
+  outline: none;
+  font-family: "Alfa Slab One", cursive;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  font-weight: 200;
+  color: #457cfb;
+  border-radius: 10px;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
-.auth button:hover, .sign-out button:hover {
-
-    color: #ff3c79;
-    transition: color 0.2s ease-in-out, background-color 0.5s ease-in-out;
+.auth button:hover,
+.sign-out button:hover {
+  color: #ff3c79;
+  transition: color 0.2s ease-in-out, background-color 0.5s ease-in-out;
 }
 
 .sign-out {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

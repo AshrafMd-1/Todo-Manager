@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable no-undef */
 
 const request = require("supertest");
 const cheerio = require("cheerio");
@@ -22,6 +22,16 @@ const extractTodoItems = (html) => {
   const $ = cheerio.load(html.text);
   return $('input[type="checkbox"]').length;
 };
+
+const login = async (agent, email, password) => {
+  const res = await agent.get("/login");
+  const csrfToken = extractCSRFToken(res);
+  await agent.post("/sessions").send({
+    email,
+    password,
+    _csrf: csrfToken,
+  });
+};
 describe("Todo Application", function () {
   beforeAll(async () => {
     await db.sequelize.sync({ force: true });
@@ -38,52 +48,85 @@ describe("Todo Application", function () {
     }
   });
 
-  test("sample test", async () => {
-    expect(1).toBe(1);
+  test("Check if index page is available", async () => {
+    const res = await agent.get("/");
+    expect(res.statusCode).toBe(200);
   });
 
-  // test("Create a Todo-Item", async () => {
-  //   const res = await agent.get("/");
-  //   const csrfToken = extractCSRFToken(res);
-  //   const response = await agent.post("/todos").send({
-  //     title: "Buy milk",
-  //     dueDate: new Date().toISOString(),
-  //     completed: false,
-  //     _csrf: csrfToken,
-  //   });
-  //   expect(response.statusCode).toBe(302);
-  // });
+  test("Sign up as a new user", async () => {
+    let res = await agent.get("/signup");
+    const csrfToken = extractCSRFToken(res);
+    res = await agent.post("/users").send({
+      firstName: "John",
+      lastName: "Doe",
+      email: "johndoe@test.com",
+      password: "password",
+      _csrf: csrfToken,
+    });
+    expect(res.statusCode).toBe(302);
+  });
+
+  test("Sign out a user", async () => {
+    let res = await agent.get("/todos");
+    expect(res.statusCode).toBe(200);
+    res = await agent.get("/signout");
+    expect(res.statusCode).toBe(302);
+    res = await agent.get("/todos");
+    expect(res.statusCode).toBe(302);
+  });
+
+  test("Create a Todo-Item", async () => {
+    const agent = request.agent(server);
+    await login(agent, "johndoe@test.com", "password");
+    const res = await agent.get("/todos");
+    const csrfToken = extractCSRFToken(res);
+    const response = await agent.post("/todos").send({
+      title: "Buy milk",
+      dueDate: new Date().toISOString(),
+      completed: false,
+      _csrf: csrfToken,
+    });
+    console.log(response);
+    expect(response.statusCode).toBe(302);
+  });
   //
-  // test("Update a Todo-Item as complete", async () => {
-  //   const res = await agent.get("/");
-  //   const csrfToken = extractCSRFToken(res);
-  //   expect(extractCompletionStatus(res)).toBe(false);
-  //   await agent.put(`/todos/${extractTodoId(res)}`).send({
-  //     completed: true,
-  //     _csrf: csrfToken,
-  //   });
-  //   expect(extractCompletionStatus(await agent.get("/"))).toBe(true);
-  // });
+  test("Update a Todo-Item as complete", async () => {
+    const agent = request.agent(server);
+    await login(agent, "johndoe@test.com", "password");
+    const res = await agent.get("/todos");
+    const csrfToken = extractCSRFToken(res);
+    expect(extractCompletionStatus(res)).toBe(false);
+    await agent.put(`/todos/${extractTodoId(res)}`).send({
+      completed: true,
+      _csrf: csrfToken,
+    });
+    expect(extractCompletionStatus(await agent.get("/todos"))).toBe(true);
+  });
   //
-  // test("Update a Todo-Item as incomplete", async () => {
-  //   const res = await agent.get("/");
-  //   const csrfToken = extractCSRFToken(res);
-  //   expect(extractCompletionStatus(res)).toBe(true);
-  //   await agent.put(`/todos/${extractTodoId(res)}`).send({
-  //     completed: false,
-  //     _csrf: csrfToken,
-  //   });
-  //   expect(extractCompletionStatus(await agent.get("/"))).toBe(false);
-  // });
+  test("Update a Todo-Item as incomplete", async () => {
+    const agent = request.agent(server);
+    await login(agent, "johndoe@test.com", "password");
+    const res = await agent.get("/todos");
+    const csrfToken = extractCSRFToken(res);
+    expect(extractCompletionStatus(res)).toBe(true);
+    await agent.put(`/todos/${extractTodoId(res)}`).send({
+      completed: false,
+      _csrf: csrfToken,
+    });
+    expect(extractCompletionStatus(await agent.get("/todos"))).toBe(false);
+  });
+
   //
-  // test("Delete a Todo-Item ", async () => {
-  //   const res = await agent.get("/");
-  //   const csrfToken = extractCSRFToken(res);
-  //   expect(extractTodoItems(res)).toBe(1);
-  //   await agent.delete(`/todos/${extractTodoId(res)}`).send({
-  //     completed: true,
-  //     _csrf: csrfToken,
-  //   });
-  //   expect(extractTodoItems(await agent.get("/"))).toBe(0);
-  // });
+  test("Delete a Todo-Item ", async () => {
+    const agent = request.agent(server);
+    await login(agent, "johndoe@test.com", "password");
+    const res = await agent.get("/todos");
+    const csrfToken = extractCSRFToken(res);
+    expect(extractTodoItems(res)).toBe(1);
+    await agent.delete(`/todos/${extractTodoId(res)}`).send({
+      completed: true,
+      _csrf: csrfToken,
+    });
+    expect(extractTodoItems(await agent.get("/todos"))).toBe(0);
+  });
 });
