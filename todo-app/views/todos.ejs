@@ -31,7 +31,7 @@
         };
 
         const deleteTodo = (id) => {
-            const token=document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             fetch(`/todos/${id}`, {
                 method: 'DELETE',
                 headers: {
@@ -62,16 +62,16 @@
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="todo">
                 <label for="todo">Todo</label>
-                <input name="title" id="todo" placeholder="Type Your Task..."  type="text">
+                <input name="title" id="todo" placeholder="Type Your Task..." type="text">
             </div>
             <div class="date">
-                <label for="date">Date</label>
+                <label for="date">Due Date</label>
                 <input name="dueDate" id="date" type="date">
             </div>
             <div class="add">
                 <button id="add" type="submit">Add</button>
             </div>
-
+            <%- include("notifications.ejs") %>
         </form>
         <div class="tasks">
             <%- include("todo.ejs",{todoType:"overdue",todoTitle:"Overdue",specificTodos:overdueTodos,specificCount:overdueCount}) %>

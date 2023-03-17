@@ -1,17 +1,18 @@
 <div class="<%= todoType %>">
     <div class="todo-header">
-        <h5><%= todoTitle%></h5>
+        <h5><%= todoTitle %></h5>
         <span class="todo-count" id="count-<%= todoType %>">
                 [<%= specificCount %>]
             </span>
     </div>
     <div id="<%= todoType %>">
         <% for(let i = 0;i < specificTodos.length;i++){ %>
-        <div class="todo-item">
-            <input onclick="updateTodo( <%= specificTodos[i].id%>)" type="checkbox" id="<%= specificTodos[i].id %>" <%= specificTodos[i].completed ? 'checked' : '' %> />
-            <label for="<%= specificTodos[i].id %>"><%= specificTodos[i].title %></label>
-            <button onclick="deleteTodo(<%= specificTodos[i].id%>)" class="delete-todo">X</button>
-        </div>
+            <div class="todo-item">
+                <input onclick="updateTodo( <%= specificTodos[i].id %>)" type="checkbox"
+                       id="<%= specificTodos[i].id %>" <%= specificTodos[i].completed ? 'checked' : '' %> />
+                <label for="<%= specificTodos[i].id %>"><%= specificTodos[i].title %></label>
+                <button onclick="deleteTodo(<%= specificTodos[i].id %>)" class="delete-todo">X</button>
+            </div>
         <% } %>
     </div>
 </div>

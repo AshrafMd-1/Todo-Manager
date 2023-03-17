@@ -64,8 +64,8 @@ passport.use(
             return done(null, false, { message: "Incorrect password." });
           }
         })
-        .catch((error) => {
-          return error;
+        .catch(() => {
+          return done(null, false, { message: "Incorrect email." });
         });
     }
   )
@@ -99,21 +99,26 @@ app.post("/users", async (request, response) => {
   const hashedPassword = await bcrypt.hash(request.body.password, 7);
   try {
     const user = await User.create({
-      firstName: request.body.firstName,
-      lastName: request.body.lastName,
+      firstName: request.body.firstname,
+      lastName: request.body.lastname,
       email: request.body.email,
       password: hashedPassword,
     });
     request.login(user, (error) => {
       if (error) {
         console.log(error);
-        return response.status(422).json(error);
+        response.locals.messages = request.flash(
+          "error",
+          error.errors[0].message
+        );
+        return response.redirect("/signup");
       }
       return response.redirect("/todos");
     });
   } catch (error) {
     console.log(error);
-    return response.status(422).json(error);
+    response.locals.messages = request.flash("error", error.errors[0].message);
+    return response.redirect("/signup");
   }
 });
 
@@ -158,7 +163,11 @@ app.get(
       });
     } catch (error) {
       console.log(error);
-      return response.status(422).json(error);
+      response.locals.messages = request.flash(
+        "error",
+        error.errors[0].message
+      );
+      return response.redirect("/todos");
     }
   }
 );
@@ -168,16 +177,27 @@ app.post(
   connectEnsureLogin.ensureLoggedIn(),
   async function (request, response) {
     console.log("Processing a new Todo with title: ", request.body.title);
+    const firstLetterCapital = (text) => {
+      return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    };
     try {
       await Todo.addTodo({
-        title: request.body.title,
+        title: firstLetterCapital(request.body.title),
         dueDate: request.body.dueDate,
         UserId: request.user.id,
       });
+      response.locals.messages = request.flash(
+        "success",
+        "Todo added successfully"
+      );
       return response.redirect("/todos");
     } catch (error) {
       console.log(error);
-      return response.status(422).json(error);
+      response.locals.messages = request.flash(
+        "error",
+        error.errors[0].message
+      );
+      return response.redirect("/todos");
     }
   }
 );
@@ -197,10 +217,18 @@ app.put(
       const updatedTodo = await todo.setCompletionStatus(
         request.body.completed
       );
+      response.locals.messages = request.flash(
+        "success",
+        "Todo updated successfully"
+      );
       return response.json(updatedTodo);
     } catch (error) {
       console.log(error);
-      return response.status(422).json(error);
+      response.locals.messages = request.flash(
+        "error",
+        error.errors[0].message
+      );
+      return response.redirect("/todos");
     }
   }
 );
@@ -215,10 +243,18 @@ app.delete(
         id: request.params.id,
         UserId: request.user.id,
       });
+      response.locals.messages = request.flash(
+        "success",
+        "Todo deleted successfully"
+      );
       return response.json({ success: true });
     } catch (error) {
       console.log(error);
-      return response.status(422).json(error);
+      response.locals.messages = request.flash(
+        "error",
+        error.errors[0].message
+      );
+      return response.redirect("/todos");
     }
   }
 );

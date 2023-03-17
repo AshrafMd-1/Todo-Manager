@@ -57,8 +57,8 @@ describe("Todo Application", function () {
     let res = await agent.get("/signup");
     const csrfToken = extractCSRFToken(res);
     res = await agent.post("/users").send({
-      firstName: "John",
-      lastName: "Doe",
+      firstname: "John",
+      lastname: "Doe",
       email: "johndoe@test.com",
       password: "password",
       _csrf: csrfToken,
@@ -86,7 +86,6 @@ describe("Todo Application", function () {
       completed: false,
       _csrf: csrfToken,
     });
-    console.log(response);
     expect(response.statusCode).toBe(302);
   });
 

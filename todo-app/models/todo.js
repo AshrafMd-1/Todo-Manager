@@ -86,9 +86,43 @@ module.exports = (sequelize, DataTypes) => {
 
   Todo.init(
     {
-      title: DataTypes.STRING,
-      dueDate: DataTypes.DATEONLY,
-      completed: DataTypes.BOOLEAN,
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        allowEmpty: false,
+        unique: {
+          args: true,
+          msg: "Title already exists",
+        },
+        validate: {
+          notNull: {
+            msg: "Title is required",
+          },
+          notEmpty: {
+            msg: "Title is required",
+          },
+        },
+      },
+      dueDate: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+        allowEmpty: false,
+        validate: {
+          notNull: {
+            msg: "Due date is required",
+          },
+          isDate: {
+            msg: "Due date must be a valid date",
+          },
+          notEmpty: {
+            msg: "Due date is required",
+          },
+        },
+      },
+      completed: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
     },
     {
       sequelize,

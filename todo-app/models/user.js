@@ -12,21 +12,66 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+
   User.init(
     {
-      firstName: DataTypes.STRING,
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        allowEmpty: false,
+        validate: {
+          notNull: {
+            msg: "First name is required",
+          },
+          notEmpty: {
+            msg: "First name is required",
+          },
+        },
+      },
       lastName: DataTypes.STRING,
       email: {
         type: DataTypes.STRING,
-        unique: true,
+        allowEmpty: false,
         allowNull: false,
+        unique: {
+          args: true,
+          msg: "Email already exists",
+        },
+        validate: {
+          notNull: {
+            msg: "Email is required",
+          },
+          isEmail: {
+            msg: "Email is invalid",
+          },
+          notEmpty: {
+            msg: "Email is required",
+          },
+        },
       },
-      password: DataTypes.STRING,
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        allowEmpty: false,
+        validate: {
+          notNull: {
+            msg: "Password is required",
+          },
+          notEmpty: {
+            msg: "Password is required",
+          },
+        },
+      },
     },
     {
       sequelize,
       modelName: "User",
     }
   );
+  // (async () => {
+  //   await sequelize.sync({
+  //     force: true
+  //   })
+  // })()
   return User;
 };
