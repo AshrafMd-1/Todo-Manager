@@ -88,21 +88,35 @@ passport.deserializeUser((id, done) => {
 });
 
 app.get("/", async (request, response) => {
+  if (request.user) {
+    return response.redirect("/todos");
+  }
   response.render("index", { csrfToken: request.csrfToken() });
 });
 
 app.get("/signup", (request, response) => {
+  if (request.user) {
+    return response.redirect("/todos");
+  }
   response.render("signup", {
     csrfToken: request.csrfToken(),
   });
 });
 
 app.post("/users", async (request, response) => {
-  const hashedPassword = await bcrypt.hash(request.body.password, 7);
+  if (request.body.password === "") {
+    console.log("Password cannot be empty");
+    response.locals.messages = request.flash(
+      "error",
+      "Password cannot be empty"
+    );
+    return response.redirect("/signup");
+  }
+  const hashedPassword = await bcrypt.hash(request.body.password, 10);
   try {
     const user = await User.create({
-      firstName: request.body.firstname,
-      lastName: request.body.lastname,
+      firstName: request.body.firstname.toUpperCase(),
+      lastName: request.body.lastname.toUpperCase(),
       email: request.body.email,
       password: hashedPassword,
     });
@@ -125,6 +139,9 @@ app.post("/users", async (request, response) => {
 });
 
 app.get("/login", (request, response) => {
+  if (request.user) {
+    return response.redirect("/todos");
+  }
   response.render("login", {
     csrfToken: request.csrfToken(),
   });
@@ -152,7 +169,14 @@ app.get(
       const today = await Todo.todayTodos(loggedUser);
       const later = await Todo.laterTodos(loggedUser);
       const completed = await Todo.completedTodos(loggedUser);
+      let username = await User.findUserById(loggedUser);
+      if (username.lastName) {
+        username = username.firstName + " " + username.lastName;
+      } else {
+        username = username.firstName;
+      }
       response.render("todos", {
+        username: username,
         overdueTodos: overdue,
         todayTodos: today,
         laterTodos: later,

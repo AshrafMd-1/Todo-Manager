@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Todo, { foreignKey: "UserId" });
       // define association here
     }
+
+    static async findUserById(loggedInUserId) {
+      return this.findOne({
+        where: {
+          id: loggedInUserId,
+        },
+      });
+    }
   }
 
   User.init(

@@ -90,10 +90,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         allowEmpty: false,
-        unique: {
-          args: true,
-          msg: "Title already exists",
-        },
         validate: {
           notNull: {
             msg: "Title is required",
