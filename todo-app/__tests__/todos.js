@@ -124,14 +124,13 @@ describe("Todo Application", function () {
     const res = await agent.get("/todos");
     const csrfToken = extractCSRFToken(res);
     const response = await agent.post("/todos").send({
-      title: "Buy milk",
+      title: "Go to shopping",
       dueDate: new Date().toISOString(),
       completed: false,
       _csrf: csrfToken,
     });
     expect(response.statusCode).toBe(302);
-    const res2 = await agent.get("/todos");
-    console.warn(res2);
+    expect(response.header.location).toBe("/todos");
     expect(extractTodoItems(await agent.get("/todos"))).toBe(1);
   });
 
@@ -159,6 +158,68 @@ describe("Todo Application", function () {
       _csrf: csrfToken,
     });
     expect(extractCompletionStatus(await agent.get("/todos"))).toBe(false);
+  });
+
+  test("User 1 cannot update user 2 Todo-Item", async () => {
+    let agent = request.agent(server);
+    await login(agent, "johnwick@test.com", "password");
+    let res = await agent.get("/todos");
+    expect(extractTodoItems(res)).toBe(1);
+    expect(extractCompletionStatus(res)).toBe(false);
+    let id = extractTodoId(res);
+
+    res = await agent.get("/signout");
+    expect(res.statusCode).toBe(302);
+    expect(res.header.location).toBe("/");
+
+    agent = request.agent(server);
+    await login(agent, "tonystark@test.com", "password");
+    res = await agent.get("/todos");
+    const csrfToken = extractCSRFToken(res);
+    await agent.put(`/todos/${id}`).send({
+      completed: true,
+      _csrf: csrfToken,
+    });
+
+    res = await agent.get("/signout");
+    expect(res.statusCode).toBe(302);
+    expect(res.header.location).toBe("/");
+
+    agent = request.agent(server);
+    await login(agent, "johnwick@test.com", "password");
+    res = await agent.get("/todos");
+    expect(extractTodoItems(res)).toBe(1);
+    expect(extractCompletionStatus(res)).toBe(false);
+  });
+
+  test("User 1 cannot delete user 2 Todo-Item", async () => {
+    let agent = request.agent(server);
+    await login(agent, "johnwick@test.com", "password");
+    let res = await agent.get("/todos");
+    expect(extractTodoItems(res)).toBe(1);
+    let id = extractTodoId(res);
+
+    res = await agent.get("/signout");
+    expect(res.statusCode).toBe(302);
+    expect(res.header.location).toBe("/");
+
+    agent = request.agent(server);
+    await login(agent, "tonystark@test.com", "password");
+    res = await agent.get("/todos");
+    const csrfToken = extractCSRFToken(res);
+    await agent.delete(`/todos/${id}`).send({
+      completed: true,
+      _csrf: csrfToken,
+    });
+
+    res = await agent.get("/signout");
+    expect(res.statusCode).toBe(302);
+    expect(res.header.location).toBe("/");
+
+    agent = request.agent(server);
+    await login(agent, "johnwick@test.com", "password");
+    res = await agent.get("/todos");
+    expect(extractTodoItems(res)).toBe(1);
   });
 
   test("Delete a Todo-Item as user 1 ", async () => {

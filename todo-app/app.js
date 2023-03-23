@@ -252,7 +252,7 @@ app.put(
       console.log(error);
       response.locals.messages = request.flash(
         "error",
-        error.errors[0].message
+        "You do not have permission to update this Todo"
       );
       return response.redirect("/todos");
     }
@@ -278,7 +278,7 @@ app.delete(
       console.log(error);
       response.locals.messages = request.flash(
         "error",
-        error.errors[0].message
+        "You do not have permission to delete this Todo"
       );
       return response.redirect("/todos");
     }
