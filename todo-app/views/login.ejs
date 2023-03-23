@@ -11,9 +11,18 @@
 <div class="page">
     <h1>Login to your account</h1>
      <div class="link">
-        <a href="/">
-            <button><-Homepage-></button>
-        </a>
+        <div class="sign">
+            <span>Create an account -></span>
+            <a href="/signup">
+                <button>Sign Up</button>
+            </a>
+        </div>
+        <div class="sign">
+            <span>Back to home -></span>
+            <a href="/">
+                <button>HomePage</button>
+            </a>
+        </div>
     </div>
     <form class="sign-in-form" method="post" action="/sessions">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
@@ -26,7 +35,7 @@
             <input type="password" id="password" placeholder="Password" name="password">
         </div>
         <div class="sign-in-input">
-            <button type="submit" class="submit">Sign In</button>
+            <button type="submit" class="submit">Login</button>
         </div>
         <%- include("notifications.ejs") %>
     </form>
