@@ -2,4 +2,8 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 cd todo-app && npm test
+npm run clean:start:test & npx cypress run
+pgrep -f "npm run clean:start:test"
+pkill -f "npm run clean:start:test"
 npx lint-staged
+
