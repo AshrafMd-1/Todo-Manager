@@ -1,0 +1,61 @@
+name: CI & CD Integration
+on: push
+env:
+  PG_DATABASE: ${{secrets.PG_DATABASE}}
+  PG_USER: ${{secrets.PG_USER}}
+  PG_PASSWORD: ${{secrets.PG_PASSWORD}}
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:11.7
+        env:
+          POSTGRES_USER: ${{secrets.PG_USER}}
+          POSTGRES_PASSWORD: ${{secrets.PG_PASSWORD}}
+          POSTGRES_DB: ${{secrets.PG_DTABASE}}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: cd todo-app && npm ci
+
+      - name: Run unit tests
+        run: cd todo-app && npm test
+
+      - name: Run the app
+        id: run-app
+        run: |
+          cd todo-app
+          npm install
+          npx sequelize-cli db:drop
+          npx sequelize-cli db:create
+          npx sequelize-cli db:migrate
+          PORT=3000 npm run start:dev &
+          sleep 5
+
+      - name: Run integration tests
+        run: |
+          cd todo-app
+          npm install cypress cypress-json-results
+          npx cypress run
+
+      - name: Notify on success
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"✨ Great News! The CI & CD workflow completed successfully! All tests passed smoothly. :tada:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"⚠️ Uh-oh! The CI & CD workflow encountered issues and failed. Immediate attention is needed. :warning:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
