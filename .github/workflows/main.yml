@@ -1,27 +1,20 @@
-name: Auto test Todo app
+name: Auto Test Todo App
 on: push
 env:
   PG_DATABASE: todo_db_test
   PG_USER: postgres
   PG_PASSWORD: ashraf
 jobs:
-  # Label of the container job
   run-tests:
-    # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
 
-    # Service containers to run with `container-job`
     services:
-      # Label used to access the service container
       postgres:
-        # Docker Hub image
         image: postgres:11.7
-        # Provide the password for postgres
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: ashraf
           POSTGRES_DB: todo_db_test
-        # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -31,12 +24,9 @@ jobs:
           - 5432:5432
 
     steps:
-      # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      # Performs a clean installation of all dependencies in the `package.json` file
-      # For more information, see https://docs.npmjs.com/cli/ci.html
       - name: Install dependencies
         run: cd todo-app && npm ci
 
@@ -59,3 +49,13 @@ jobs:
           cd todo-app
           npm install cypress cypress-json-results
           npx cypress run
+
+      - name: Notify on success
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"The Auto Test Todo App workflow has passed successfully! :tada:"}' $SLACK_WEBHOOK_URL
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"The Auto Test Todo App workflow has failed. :warning:"}' $SLACK_WEBHOOK_URL
