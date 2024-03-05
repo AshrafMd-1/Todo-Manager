@@ -1,6 +1,6 @@
 name: Docker CI & CD
 
-on: [push]
+on: [ push ]
 
 jobs:
   run-tests:
@@ -20,7 +20,7 @@ jobs:
         run: cd todo-app && docker-compose run app npm test
 
       - name: Run integration tests
-        run: cd todo-app && docker-compose run app npm install cypress cypress-json-results && docker-compose run app npx cypress run
+        run: cd todo-app && docker-compose run app npm install cypress cypress-json-results && docker-compose run app npm run clean:start:dev & docker-compose run app npx cypress run
 
       - name: Notify on success
         if: success()
