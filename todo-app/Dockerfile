@@ -1,22 +1,47 @@
-FROM --platform=$BUILDPLATFORM node:lts-alpine as base
-RUN apt-get update && \
-    apt-get install -y xvfb libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Development stage
+FROM node:lts-alpine as base
+
+# Install necessary dependencies
+RUN apk update && \
+    apk add --no-cache xvfb libnotify libgconf libnss libxss libasound && \
+    rm -rf /var/cache/apk/*
+
+# Set environment variables
 ENV DISPLAY=:99
+
+# Set the working directory
 WORKDIR /app
-COPY package.json /
+
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Expose the port that your app is running on
 EXPOSE 3000
-CMD ["Xvfb", "-ac", ":99", "-screen", "0", "1280x1024x16", "&", "npm", "start"]
 
+# Production stage
 FROM base as production
-ENV NODE_ENV=production
-RUN npm install
-COPY . /app
-CMD node index.js
 
+ENV NODE_ENV=production
+
+# Install production dependencies
+RUN npm install --only=production
+
+# Copy the rest of the app files
+COPY . .
+
+# Start your application in production mode
+CMD ["node", "index.js"]
+
+# Development stage
 FROM base as dev
+
 ENV NODE_ENV=development
+
+# Install development dependencies
 RUN npm install -g nodemon && npm install
-COPY . /app
-CMD npm run clean:start:dev
+
+# Copy the rest of the app files
+COPY . .
+
+# Start your application in development mode
+CMD ["npm", "run", "clean:start:dev"]
