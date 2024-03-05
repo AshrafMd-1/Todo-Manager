@@ -22,7 +22,7 @@ services:
     env_file:
       - .env
     environment:
-      POSTGRES_USER: $DEV_USER
+      POSTGRES_USER: $DB_USER
       POSTGRES_DB: $DEV_DATABASE
       POSTGRES_PASSWORD: $DB_PASSWORD
 
