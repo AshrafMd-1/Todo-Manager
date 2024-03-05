@@ -26,7 +26,11 @@ COPY . /app
 CMD node index.js
 
 FROM base as dev
+FROM cypress/included:8.3.0
 ENV NODE_ENV=development
 RUN npm install -g nodemon && npm install
 COPY . /app
-CMD npm run clean:start:dev
+COPY ./cypress ./cypress
+COPY ./cypress.json ./cypress.json
+COPY ./cypress.config.js ./cypress.config.js
+CMD npm run clean:start:dev & npx cypress run --headless

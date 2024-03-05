@@ -19,16 +19,6 @@ jobs:
       - name: Run unit tests
         run: cd todo-app && docker-compose run app npm test
 
-      - name: Run the app
-        id: run-app
-        run: |
-          cd todo-app
-          docker-compose run app npx sequelize-cli db:drop
-          docker-compose run app npx sequelize-cli db:create
-          docker-compose run app npx sequelize-cli db:migrate
-          docker-compose run app npm run start:dev &
-          sleep 5
-
       - name: Run integration tests
         run: |
           cd todo-app
@@ -38,7 +28,7 @@ jobs:
           docker-compose run app npm run start:dev &
           sleep 5
           docker-compose run app npm install cypress cypress-json-results
-          docker-compose run app npx cypress run
+          docker-compose run app npx cypress run --headless
 
       - name: Notify on success
         if: success()
