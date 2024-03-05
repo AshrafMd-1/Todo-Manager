@@ -17,7 +17,7 @@ jobs:
         run: cd todo-app && docker-compose up -d & sleep 5
 
       - name: Run unit tests
-        run: cd todo-app && docker-compose run app npm run clean:test && docker-compose run app npm test
+        run: cd todo-app && docker-compose run app npm test
 
       - name: Run integration tests
         run: cd todo-app && docker-compose run app npm install cypress cypress-json-results && docker-compose run app npx cypress run
