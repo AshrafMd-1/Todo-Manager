@@ -30,7 +30,7 @@ jobs:
           sleep 5
 
       - name: Run integration tests
-        run: cd todo-app && docker-compose run app npm install cypress cypress-json-results && docker-compose run app npm run clean:start:dev & docker-compose run app npx cypress run
+        run: cd todo-app && docker-compose run app npm install cypress cypress-json-results && docker-compose run app npx cypress run
 
       - name: Notify on success
         if: success()
