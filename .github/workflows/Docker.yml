@@ -16,9 +16,6 @@ jobs:
       - name: Run Docker Compose
         run: cd todo-app && docker-compose up -d & sleep 5
 
-      - name: Wait for services to be ready
-        run: cd todo-app && docker-compose run app bash -c 'while !</dev/tcp/localhost/3000; do sleep 1; done'
-
       - name: Run unit tests
         run: cd todo-app && docker-compose run app npm test
 
