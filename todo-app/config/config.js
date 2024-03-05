@@ -18,7 +18,7 @@ module.exports = {
     password: process.env.DB_PASSWORD.includes("secrets")
       ? "ashraf"
       : process.env.DB_PASSWORD,
-    database: "todo_db_test",
+    database: "todo_test",
     host: process.env.DB_HOST.includes("secrets")
       ? "127.0.0.1"
       : process.env.DB_HOST,
