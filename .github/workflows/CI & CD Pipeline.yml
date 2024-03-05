@@ -12,9 +12,10 @@ jobs:
       postgres:
         image: postgres:11.7
         env:
+          POSTGRES_DB: ${{secrets.PG_DATABASE}}
           POSTGRES_USER: ${{secrets.PG_USER}}
           POSTGRES_PASSWORD: ${{secrets.DB_PASSWORD}}
-          POSTGRES_DB: ${{secrets.PG_DATABASE}}
+
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
