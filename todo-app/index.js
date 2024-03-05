@@ -1,5 +1,10 @@
-const app = require("./app");
+/* eslint-disable no-undef */
 
-app.listen(3000, () => {
-  console.log("Started express server at port http://localhost:3000");
+const app = require("./app");
+require("dotenv").config();
+
+app.listen(process.env.PORT, () => {
+  console.log(
+    "Started express server at port http://localhost:" + process.env.PORT
+  );
 });
