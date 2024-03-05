@@ -1,4 +1,4 @@
-name: Docker CI & CD
+name: Docker CI/CD
 
 on: [push]
 
@@ -6,31 +6,53 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
 
+    container:
+      image: todo-app:development
+      env:
+        DEV_USERNAME: ${{ secrets.DB_USER }}
+        DEV_DATABASE: ${{ secrets.DEV_DATABASE }}
+        DEV_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_DB: ${{ secrets.DEV_DATABASE }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Build Docker image
-        run: cd todo-app && docker-compose build
+        run: docker-compose build
 
       - name: Run Docker Compose
-        run: cd todo-app && docker-compose up -d & sleep 5
+        run: docker-compose up -d
 
       - name: Run unit tests
-        run: cd todo-app && docker-compose run app npm test
+        run: docker-compose exec app npm test
 
       - name: Run integration tests
-        run: cd todo-app && docker-compose run app npm install cypress cypress-json-results && docker-compose run app npx cypress run
+        run: docker-compose exec app npm install cypress cypress-json-results && docker-compose exec app npx cypress run
 
       - name: Notify on success
         if: success()
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"✨ Great News! The CI & CD workflow completed successfully! All tests passed smoothly. :tada:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"✨ Great News! The Docker CI & CD workflow completed successfully! All tests passed smoothly. :tada:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify on failure
         if: failure()
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"⚠️ Uh-oh! The CI & CD workflow encountered issues and failed. Immediate attention is needed. :warning:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"⚠️ Uh-oh! The Docker CI & CD workflow encountered issues and failed. Immediate attention is needed. :warning:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Stop and remove Docker containers
-        run: cd todo-app && docker-compose down
+        run: docker-compose down
