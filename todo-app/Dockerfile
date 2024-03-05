@@ -1,6 +1,6 @@
 # First stage to install dependencies
-FROM --platform=$BUILDPLATFORM node:lts-alpine as dependencies
-RUN apk --no-cache add \
+FROM --platform=$BUILDPLATFORM node:lts as dependencies
+RUN apt-get update && apt-get install -y \
     libgtk2.0-0 \
     libgtk-3-0 \
     libgbm-dev \
@@ -17,6 +17,7 @@ FROM dependencies as base
 WORKDIR /app
 COPY package.json /
 EXPOSE 3000
+
 
 FROM base as production
 ENV NODE_ENV=production
