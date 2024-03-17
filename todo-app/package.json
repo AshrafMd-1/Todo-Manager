@@ -27,6 +27,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sentry/react": "^7.107.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "connect-ensure-login": "^0.1.1",
