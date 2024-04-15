@@ -53,7 +53,7 @@ jobs:
       - name: Notify on success
         if: success()
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"The Auto Test Todo App workflow has passed successfully! :tada:"}' ${{secrets.SLACK_WEBHOOK_URL}}
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"The Auto Test Todo App workflow has passed successfully!! :tada:"}' ${{secrets.SLACK_WEBHOOK_URL}}
 
       - name: Notify on failure
         if: failure()
