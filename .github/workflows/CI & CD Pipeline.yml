@@ -44,6 +44,7 @@ jobs:
           PORT=3000 npm run start:dev &
           sleep 5
 
+
       - name: Run integration tests
         run: |
           cd todo-app
