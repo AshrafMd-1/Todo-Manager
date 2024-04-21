@@ -14,6 +14,9 @@ const path = require("path");
 const { Todo } = require("./models");
 const { User } = require("./models");
 
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+require("dotenv").config();
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -45,6 +48,10 @@ app.use((request, response, next) => {
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+/* eslint-disable no-undef */
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
 passport.use(
   new LocalStrategy(
@@ -215,6 +222,69 @@ app.post(
       response.locals.messages = request.flash(
         "success",
         "Todo added successfully"
+      );
+      return response.redirect("/todos");
+    } catch (error) {
+      console.log(error);
+      response.locals.messages = request.flash(
+        "error",
+        error.errors[0].message
+      );
+      return response.redirect("/todos");
+    }
+  }
+);
+
+app.post(
+  "/todos-ai",
+  connectEnsureLogin.ensureLoggedIn(),
+  async function (request, response) {
+    console.log("Creating a Todo with AI ", request.body.info);
+
+    const prompt = `
+    I'm building an API that generates JSON data for tasks. Each task includes a title and a due date. I will provide a scenario, and you will return a JSON object containing 3 to 4 tasks, formatted like this:
+
+{
+  "tasks": [
+    {
+      "title": "Task 1",
+      "dueDate": "2022-03-01"
+    },
+    {
+      "title": "Task 2",
+      "dueDate": "2022-03-01"
+    },
+    {
+      "title": "Task 3",
+      "dueDate": "2022-03-01"
+    }
+  ],
+}
+
+The tasks should be related to the given scenario and each task must be having a short title. Additionally, include today's date in ISO format. 
+Today's date is ${new Date().toISOString().split("T")[0]}
+Situation is ${request.body.info}
+Ensure the response is in JSON format, without markdown.
+    `;
+
+    const result = await model.generateContent(prompt);
+    const res_ai = await result.response;
+    const text = res_ai.text();
+    console.log(text);
+    new_text = text.slice(text.indexOf("{"), text.lastIndexOf("}") + 1);
+    new_task_obj = JSON.parse(new_text);
+
+    try {
+      for (let i = 0; i < new_task_obj.tasks.length; i++) {
+        await Todo.addTodo({
+          title: new_task_obj.tasks[i].title,
+          dueDate: new_task_obj.tasks[i].dueDate,
+          UserId: request.user.id,
+        });
+      }
+      response.locals.messages = request.flash(
+        "success",
+        "Todos added successfully"
       );
       return response.redirect("/todos");
     } catch (error) {

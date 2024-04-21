@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,29 +52,41 @@
     </script>
 
 </head>
+
 <body>
-<header>
-    <%- include('header.ejs') %>
-</header>
-<main>
-    <p class="title">Type your TODO here</p>
-    <div class="page">
-        <form class="input-form" action="/todos" method="post">
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <div class="todo">
-                <label for="todo">Todo</label>
-                <input name="title" id="todo" placeholder="Type Your Task..." type="text">
-            </div>
-            <div class="date">
-                <label for="date">Due Date</label>
-                <input name="dueDate" id="date" type="date">
-            </div>
-            <div class="add">
-                <button id="add" type="submit">Add</button>
-            </div>
-            <%- include("notifications.ejs") %>
-        </form>
-        <div class="tasks">
+    <header>
+        <%- include('header.ejs') %>
+    </header>
+    <main>
+        <p class="title">Type your TODO here</p>
+        <div class="page">
+            <form class="input-form" action="/todos" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div class="todo">
+                    <label for="todo">Todo</label>
+                    <input name="title" id="todo" placeholder="Type Your Task..." type="text">
+                </div>
+                <div class="date">
+                    <label for="date">Due Date</label>
+                    <input name="dueDate" id="date" type="date">
+                </div>
+                <div class="add">
+                    <button id="add" type="submit">Add</button>
+                </div>
+                <%- include("notifications.ejs") %>
+            </form>
+            <form class="input-form" action="/todos-ai" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div class="todo">
+                    <label for="todo-info">Todo Summary</label>
+                    <input name="info" id="todo-info" placeholder="Type Your Task Summary..." type="text">
+                </div>
+                <div class="add">
+                    <button id="add" type="submit">Submit AI</button>
+                </div>
+                <%- include("notifications.ejs") %>
+            </form>
+            <div class="tasks">
             <%- include("todo.ejs",{todoType:"overdue",todoTitle:"Overdue",specificTodos:overdueTodos,specificCount:overdueCount}) %>
             <%- include("todo.ejs",{todoType:"today",todoTitle:"Due Today",specificTodos:todayTodos,specificCount:todayCount}) %>
             <%- include("todo.ejs",{todoType:"upcoming",todoTitle:"Due Later",specificTodos:laterTodos,specificCount:laterCount}) %>
@@ -85,4 +98,5 @@
     <%- include("footer.ejs") %>
 </footer>
 </body>
+
 </html>
