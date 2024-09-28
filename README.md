@@ -1,7 +1,5 @@
-WD201 course assignments
+# TODO-APP
 
-This is all the project folders and files that were given as assignments for pupil school Web Development course 201 [wd201].
-
-Please don't copy or plagiarize it.
-
-Only for reference purposes.
+## Description
+This is a simple todo app that allows users to add, delete and mark tasks as done. The app is built using nodejs
+Also uses AI to create tasks

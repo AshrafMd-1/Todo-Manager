@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const csurf = require("tiny-csrf");
 const cookieParser = require("cookie-parser");
+require("dotenv").config(); 
 
 const passport = require("passport");
 const connectEnsureLogin = require("connect-ensure-login");
@@ -295,4 +296,9 @@ app.get("/signout", (request, response, next) => {
   });
 });
 
-module.exports = app;
+app.listen(process.env.PORT, () => {
+  console.log(
+    "Started express server at port http://localhost:" + process.env.PORT
+  );
+});
+
